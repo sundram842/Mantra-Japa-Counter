@@ -1,1 +1,30 @@
-/* You can add global styles to this file, and also import other style files */
+/* Global styles */
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Remove outline on tap for mobile */
+button:focus-visible {
+  outline: 2px solid var(--mat-sys-primary);
+  outline-offset: 2px;
+}
+
+/* Ensure touch targets are large enough */
+button {
+  min-height: 44px;
+  min-width: 44px;
+}
