@@ -1,17 +1,80 @@
-<!-- Toolbar -->
-<mat-toolbar class="app-toolbar">
-  <mat-icon class="app-icon">self_improvement</mat-icon>
-  <span class="app-title">Japa Counter</span>
-  <span class="spacer"></span>
-  <button mat-icon-button (click)="toggleTheme()" aria-label="Toggle theme">
-    <mat-icon>{{ themeService.isDark() ? 'light_mode' : 'dark_mode' }}</mat-icon>
-  </button>
-  <button mat-icon-button (click)="openSettings()" aria-label="Settings">
-    <mat-icon>settings</mat-icon>
-  </button>
-</mat-toolbar>
+@if (auth.isLoggedIn()) {
+  <!-- Toolbar (only when logged in) -->
+  <mat-toolbar class="app-toolbar">
+    <mat-icon class="app-icon">self_improvement</mat-icon>
+    <span class="app-title">Japa Counter</span>
+    <span class="spacer"></span>
 
-<!-- Main Content -->
-<main class="app-content">
-  <app-counter (resetRequested)="onResetRequested()" />
-</main>
+    <!-- Navigation -->
+    <nav class="nav-links">
+      <a
+        mat-button
+        routerLink="/counter"
+        routerLinkActive="active-link"
+      >
+        <mat-icon>touch_app</mat-icon>
+        <span class="nav-label">Counter</span>
+      </a>
+      <a
+        mat-button
+        routerLink="/dashboard"
+        routerLinkActive="active-link"
+      >
+        <mat-icon>dashboard</mat-icon>
+        <span class="nav-label">Dashboard</span>
+      </a>
+    </nav>
+
+    <span class="spacer"></span>
+
+    <button mat-icon-button (click)="toggleTheme()" aria-label="Toggle theme">
+      <mat-icon>{{ themeService.isDark() ? 'light_mode' : 'dark_mode' }}</mat-icon>
+    </button>
+    <button mat-icon-button (click)="openSettings()" aria-label="Settings">
+      <mat-icon>settings</mat-icon>
+    </button>
+
+    <!-- User menu -->
+    <button mat-icon-button [matMenuTriggerFor]="userMenu" aria-label="User menu">
+      <mat-icon>account_circle</mat-icon>
+    </button>
+    <mat-menu #userMenu="matMenu">
+      <div class="user-menu-header" mat-menu-item disabled>
+        <mat-icon>person</mat-icon>
+        <span>{{ auth.currentUser()?.name }}</span>
+      </div>
+      <button mat-menu-item (click)="logout()">
+        <mat-icon>logout</mat-icon>
+        <span>Sign Out</span>
+      </button>
+    </mat-menu>
+  </mat-toolbar>
+
+  <!-- Main Content -->
+  <main class="app-content">
+    <router-outlet />
+  </main>
+
+  <!-- Bottom nav for mobile -->
+  <nav class="bottom-nav">
+    <a
+      routerLink="/counter"
+      routerLinkActive="active-tab"
+      class="bottom-tab"
+    >
+      <mat-icon>touch_app</mat-icon>
+      <span>Counter</span>
+    </a>
+    <a
+      routerLink="/dashboard"
+      routerLinkActive="active-tab"
+      class="bottom-tab"
+    >
+      <mat-icon>dashboard</mat-icon>
+      <span>Dashboard</span>
+    </a>
+  </nav>
+} @else {
+  <!-- Auth pages (no toolbar) -->
+  <router-outlet />
+}
