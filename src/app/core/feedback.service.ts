@@ -8,8 +8,8 @@ export class FeedbackService {
 
   vibrate(duration: number): void {
     if (!isPlatformBrowser(this.platformId)) return;
-    if ('vibrate' in navigator) {
-      navigator.vibrate(duration);
+    if (navigator.vibrate) {
+      navigator.vibrate([duration]);
     }
   }
 

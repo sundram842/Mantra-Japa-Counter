@@ -8,7 +8,7 @@ export interface AppSettings {
 
 export const DEFAULT_SETTINGS: AppSettings = {
   vibrationEnabled: true,
-  vibrationDuration: 50,
+  vibrationDuration: 100,
   soundEnabled: false,
   resetConfirmation: true,
   darkMode: false,
